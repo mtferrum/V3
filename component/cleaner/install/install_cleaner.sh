@@ -1,0 +1,1 @@
+echo "*/5 * * * * /opt/projects/venv/bin/python /opt/projects/mvid/run_cleaner.py" > cron && crontab cron

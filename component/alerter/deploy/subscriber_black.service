@@ -1,0 +1,16 @@
+[Unit]
+Description = Subscriber
+
+[Service]
+User = tech
+WorkingDirectory = /opt/projects/mvid
+EnvironmentFile = /etc/spyspace/openvino_python.env
+ExecStart = /opt/projects/venv/bin/python /opt/projects/mvid/run_subscriber.py alerter telebot_subscriber=blacklist
+
+Restart = always
+RestartSec = 10
+
+[Install]
+WantedBy = multi-user.target
+
+

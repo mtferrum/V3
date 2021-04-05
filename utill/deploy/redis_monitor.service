@@ -1,0 +1,16 @@
+[Unit]
+Description = Redis_monitor
+
+[Service]
+User = tech
+WorkingDirectory = /opt/projects/mvid
+EnvironmentFile = /etc/spyspace/openvino_python.env
+ExecStart = /usr/bin/python3 /opt/projects/mvid/utill/redis_monitor.py
+
+Restart = always
+RestartSec = 10
+
+[Install]
+WantedBy = multi-user.target
+
+

@@ -1,0 +1,17 @@
+#Place this in /etc/systemd/system/
+[Unit]
+Description = MVideo Reporter service
+After = network.target
+
+[Service]
+User = tech
+WorkingDirectory = /opt/projects/mvid
+EnvironmentFile = /etc/spyspace/openvino_python.env
+ExecStart = /home/tech/.local/bin/uwsgi --ini /etc/uwsgi/apps-enables/reporter.ini
+
+Restart = always
+RestartSec = 10
+
+[Install]
+WantedBy = multi-user.target
+

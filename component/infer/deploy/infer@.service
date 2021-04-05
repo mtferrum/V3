@@ -1,0 +1,16 @@
+[Unit]
+Description = Infer
+
+[Service]
+Type=simple
+User=tech
+WorkingDirectory = /opt/projects/mvid
+EnvironmentFile = /etc/spyspace/openvino_python.env
+PIDFile=/var/spyspace/%H:%i.pid
+ExecStart = taskset -c %i /opt/projects/venv/bin/python /opt/projects/mvid/run_infer.py infer
+
+Restart = always
+RestartSec = 10
+
+[Install]
+WantedBy = multi-user.target

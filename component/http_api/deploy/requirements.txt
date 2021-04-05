@@ -1,0 +1,9 @@
+uwsgi
+Flask
+Flask-Cors
+Flask-JWT-Extended
+Flask-RESTful
+hnswlib
+mysql-connector-python
+redis
+pyyaml

@@ -1,0 +1,88 @@
+reader:
+  streams:
+#  - rtsp://admin:Vehfrfvb1!@172.16.16.19:554/Streaming/Channels/101
+  - rtspsrc location=rtsp://admin:z123z123@192.168.1.200 latency=10 ! decodebin ! videoconvert! appsink
+  - rtspsrc location=rtsp://admin:z123z123@192.168.1.201 latency=10 ! decodebin ! videoconvert! appsink
+  - rtspsrc location=rtsp://admin:z123z123@192.168.1.202 latency=10 ! decodebin ! videoconvert! appsink
+  - rtspsrc location=rtsp://admin:z123z123@192.168.1.203 latency=10 ! decodebin ! videoconvert! appsink
+  - rtspsrc location=rtsp://admin:z123z123@192.168.1.204 latency=10 ! decodebin ! videoconvert! appsink
+  - rtspsrc location=rtsp://admin:z123z123@192.168.1.205 latency=10 ! decodebin ! videoconvert! appsink
+  - rtspsrc location=rtsp://admin:z123z123@192.168.1.206 latency=10 ! decodebin ! videoconvert! appsink
+  videos_path: /var/videos/
+  standby: /media/img/standby.png
+  video_duration: 60
+  framerate: 25
+  ext: avi
+  max_videos_size: 200
+
+analyze:
+  ann:
+    ann_max_elements: 2000
+    ann_path: /var/spyspace/faces.bin
+    identify_threshold: 0.40
+    photos_dir: /var/spyspace/photos
+
+redis:
+  redis_host: 192.168.2.150
+  redis_host2: 192.168.3.150
+  redis_queue_size: 4000
+
+mysql:
+  mysql_host: 192.168.2.150
+  mysql_user: root
+  mysql_passwd: z123
+  mysql_database: mvideo
+  mysql_port: 3306
+  mysql_max_block_size: 5
+
+alerter:
+  send_timeout: 10
+  telegram_journal: True
+  telegram:
+    proxy: { https: "socks5h://proxy_user_01:z123@95.216.216.103:1080" }
+    telebot_black_token: 893085491:AAEI_61bCJ9Ud_vzS17WjyVTAVGRQsVttu0
+    telebot_white_token: 1099347638:AAHVJ5wSjlVZFGnK-Ga8BAMiKqTbsEvQCWQ
+    telebot_password: z123
+
+logging:
+  version: 1
+  formatters:
+    simple:
+      format: '{version} {initiator}/%(name)s %(asctime)-15s [ %(levelname)s ] %(process)d %(filename)s: %(message)s'
+  handlers:
+    console:
+      class: logging.StreamHandler
+      level: DEBUG
+      formatter: simple
+      stream: ext://sys.stdout
+    file_handler:
+      class: logging.FileHandler
+      level: DEBUG
+      formatter: simple
+      filename: /var/log/spyspace/spyspace.log
+  loggers:
+    spyspace:
+      level: DEBUG
+      handlers: [console, file_handler]
+      propagate: no
+
+vino:
+  vino_mode: CPU
+#  vino_mode: GPU
+#  cpu_extension: /opt/intel/openvino_2019.3.376/inference_engine/lib/intel64/libcpu_extension_avx512.so
+cnn:
+  detection_threshold: 0.50
+#  intel_fd_model: /opt/projects/mvid/component/infer/model/face-detection-retail-0004/FP16/face-detection-retail-0004.xml
+#  intel_lm_model: /opt/projects/mvid/component/infer/model/landmarks-regression-retail-0009/FP16/landmarks-regression-retail-0009.xml
+#  intel_ri_model: /opt/projects/mvid/component/infer/model/face-reidentification-retail-0095/FP16/face-reidentification-retail-0095.xml
+
+counter:
+  tracker_threshold: 0.01
+  tracker_lag: 3
+  download_interval: 20
+  track_max_lag: 10
+  select_limit: 1000
+
+reporter:
+  uri: /
+  image_path: /var/spyspace/frames

@@ -1,0 +1,16 @@
+[Unit]
+Description = Reader
+
+[Service]
+User = tech
+WorkingDirectory = /opt/projects/mvid
+EnvironmentFile = /etc/spyspace/openvino_python.env
+ExecStart = /usr/bin/python3 /opt/projects/mvid/run_reader.py reader
+
+Restart = always
+RestartSec = 10
+
+[Install]
+WantedBy = multi-user.target
+
+

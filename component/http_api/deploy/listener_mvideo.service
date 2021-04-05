@@ -1,0 +1,16 @@
+#Place this in /etc/systemd/system
+[Unit]
+Description = Listener for search tree manipulations via Redis.
+
+[Service]
+User = tech
+WorkingDirectory = /opt/projects/mvid
+EnvironmentFile = /etc/spyspace/openvino_python.env
+ExecStart = /opt/projects/venv/bin/python3 /opt/projects/mvid/run_face_listener.py listener
+
+Restart = always
+RestartSec = 10
+
+[Install]
+WantedBy = multi-user.target
+
